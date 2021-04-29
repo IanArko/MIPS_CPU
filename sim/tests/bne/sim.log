@@ -1,0 +1,8 @@
+Instruction Memory: tests/bne/build/app.hex
+No input data buffer
+No output buffer
+Running userlogic for maximum of 1000 cycles
+VCD info: dumpfile tests/bne/streamwave.vcd opened for output.
+Userlogic ran for 9 cycles
+status register = 1
+test register = 0

@@ -1,0 +1,8 @@
+Instruction Memory: tests/fwd_idrs_ex/build/app.hex
+No input data buffer
+No output buffer
+Running userlogic for maximum of 1000 cycles
+VCD info: dumpfile tests/fwd_idrs_ex/streamwave.vcd opened for output.
+Userlogic ran for 18 cycles
+status register = 1
+test register = X

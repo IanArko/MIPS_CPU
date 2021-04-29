@@ -1,0 +1,30 @@
+module userlogic
+#(
+    parameter BUF_SIZE = 4096,
+    parameter ADDR_WIDTH = 12,
+    parameter AXIS_DWIDTH = 32
+)
+(
+    input wire clk,
+    input wire rst_n,
+
+    // Interface to instruction memory (MIPS only)
+    input  wire [31:0] instr,
+    output wire [31:0] instr_addr,
+
+    // Interface to data input buffer
+    input  wire [31:0] read_data,
+    output wire [31:0] read_addr,
+
+    // Interface to data output buffer
+    output wire [31:0] write_data,
+    output wire [31:0] write_addr,
+    output wire write_en,
+
+    // External shared registers
+    input  wire [31:0] command,
+    output wire [31:0] status,
+    output wire [31:0] test
+);
+
+endmodule

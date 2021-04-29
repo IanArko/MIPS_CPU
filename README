@@ -1,0 +1,36 @@
+#Lab 3
+##Our Process
+Before we did anything, we tried to understand the pipeline. We did this by running through all of the signals and created a block diagram to help us visualize the system and the dependencies in the timing. One difficulty was the pipeline registers, and the signals that didn’t go into these registers and instead went straight to the memory. After a while, we realized that these signals weren’t going into a pipeline flip flop as the memory’s delay provided the pipelining. 
+
+Once we felt comfortable with the design, we began writing our tests. Our testing philosophy was to implement the functions with nop and forwarding first. We wanted to make sure that the datapath and signals were correct regardless of any dependencies between the stages. We started with arithmetic first for the same reason, as the ALU ops were easier to understand. We followed the progressively harder instructions, ending with sc and ll.
+
+After all tests were passing with forced nops, we duplicated all of our tests but removed the nops to allow for testing of our forwarding and stalling. Then, we tackled forwarding and stalling. What we found difficult with forwarding was from which parts of the pipeline we could forward from and when. Finally, we did stalling, which was simple once we understood that we should only stall for the load use case.
+
+At this point, all 91 of our tests were passing, so we implemented 4 more tests, including hailstone and sobel_asm. These all passed and we proceeded to generate our bitfile.
+##Alu Operations
+add, addi, addiu, addu, and, andi, lui, mul, movn, movz, nor, or, ori, sll, sllv, slt, slti, sltiu, sltu, sra, srav, srl, srlv, sub, subu, xor, xori
+
+For some of the operations, we didn’t need to do anything to implement them. What we did have to do was to create tests with nops so we could actually see what was and what wasn’t working without stalls and forwarding.
+
+We started with these 6 ops (mul, xor, xori, nor, sra, srav), as they had no functionality built in, and we could readily see that we needed to add them to the decode and to the alu stages without any additional control signals. For each instruction, we made sure there was a decode case. We then made sure that the immediate controls were appropriate if they needed to be used. In the ALU, we made sure that was actually a response with the ALU opcode, and if there wasn’t, we added it.
+##Moves
+For movn and movz, we just needed to make sure that the datapath was complete. We also needed to write the tests, which were relatively easy. 
+##Memory Operations
+For loads and stores, we ensured that the reg write enable was correct as well as the mem read signal. The sb and lb were tricker, as we needed to figure out how we were selecting only one byte. Once we figured out that the memory itself had a column select, it was solved. For the loads, we just needed to make sure that the mem read was high, and for the stores we needed to make sure that the mem read was high.
+##Jumps and Branches
+To get our jumps and branches working, we needed to add an additional control signal to the instruction fetch stage.We added jr_pc_id and we added jr_target_id. These made sure that if we were jumping to a register that we would choose the data that was being read from the register as a jump target. If we were linking, we could do the same process, add a signal to identify a jump along with the address to the instruction fetch stage, then we needed to make sure we were writing the linked PC to the reg RA which we did with a ternary operator which cased on a link signal.
+
+For branches, we could reuse a lot of the jump logic. What we did need to add to the jump_braach signal to ensure that we only branched if the logical statement resolved to be true. Otherwise, the logic was already given to us.
+
+##Atomic Operations
+LL and SC were the last of the instructions that we implemented, as we felt they would be the most difficult. They weren’t as bad as we expected, as the instructions just did less than we thought they would. We made sure that the atomic_id signal was correctly assigned. The idea was that the id is high after a LL until there is a store op. Once we understood this, we were good to go. We also had to set the mem_sc_mask_id to the correct value. To do this, we thought through a case by case statement and created a logic table to make sure the values were correct.
+##Forwarding
+To forward, we needed to understand what data could be used and from where. We realized that forwarding would only be useful if we forwarded from the ex stage or the memory stage. Otherwise, there would be no value gained. We could either be forwarding the rs or the rt data, but we would need to know which. Using the hint about forward rs mem we were able to realize that we could use the register addresses being piped in later stages. If these register values were the same as the registers we were currently using in the decoding stage, then we could pipe the data from the ex or the mem stage to this register.
+##Stalling
+Once forwarding was working we realized there was really only one case where we would need data and it wasn’t yet present. This was the case where we were reading from memory then accessing it with the next operations. In this case, our address for memory is in the ex stage and hasn’t yet read from memory, while our decode stage is trying to read this memory that hasn’t yet been accessed.
+
+We added to the stall signal we were given by checking if there was an additional rt data mem dependency. After we did this, all 91 of our tests passed and we moved onto testing.
+##Synthesis
+When we had all of our stock tests working, we began our synthesis. We had one issue with the makefile but that was resolved easily with the help of piazza. 
+
+

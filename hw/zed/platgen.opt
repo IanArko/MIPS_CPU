@@ -1,0 +1,11 @@
+-p
+xc7z020clg484-1
+-lang
+verilog
+-intstyle
+default
+-lp
+/home/zed/ee108z/adv_xps_proj/cf_lib/
+-msg
+__xps/ise/xmsgprops.lst
+system.mhs

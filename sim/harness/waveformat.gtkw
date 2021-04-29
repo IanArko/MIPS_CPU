@@ -1,0 +1,43 @@
+[*]
+[*] GTKWave Analyzer v3.3.58 (w)1999-2014 BSI
+[*] Fri Jan  9 20:37:52 2015
+[*]
+[timestart] 0
+[size] 1535 876
+[pos] 1089 370
+*-15.000000 0 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] userlogic_test.
+[treeopen] userlogic_test.ul.
+[treeopen] userlogic_test.ul.cpu.
+[sst_width] 223
+[signals_width] 210
+[sst_expanded] 1
+[sst_vpaned_height] 287
+@200
+-Top
+@28
+userlogic_test.clk
+userlogic_test.rst_n
+@200
+-Input Buffer
+@22
+userlogic_test.input_buffer.addr[13:0]
+userlogic_test.input_buffer.din[31:0]
+userlogic_test.input_buffer.dout[31:0]
+@28
+userlogic_test.input_buffer.we
+@200
+-Output Buffer
+@22
+userlogic_test.output_buffer.addr[13:0]
+userlogic_test.output_buffer.din[31:0]
+userlogic_test.output_buffer.dout[31:0]
+@28
+userlogic_test.output_buffer.we
+@200
+-MIPS
+@22
+userlogic_test.ul.cpu.pc[31:0]
+userlogic_test.ul.cpu.instr[31:0]
+[pattern_trace] 1
+[pattern_trace] 0

@@ -1,0 +1,21 @@
+README for tools/
+=================
+
+This folder contains the necessary files to build a MIPS cross compiler
+and other utilities needed to make and test MIPS executables.
+
+You may build these tools locally or use pre-compiled tools located at
+/afs/ir.stanford.edu/class/ee180/mips_tc.
+
+If you decide to build on your local machine, you will need a unix-like
+environment (Linux, MacOs, Cygwin, etc.) and basic build tools (gcc,
+make, etc.).
+
+Irregardless of the method you choose, you will need to point the
+simulation Makefile to the path of the tools.
+
+Contents
+--------
+
+   gcc-mips/        A Makefile to download and build gcc.
+   util/            A binary conversion utility for MIPS executables.
